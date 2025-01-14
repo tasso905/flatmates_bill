@@ -20,12 +20,12 @@
 
         flatmate_1:
 
-        calc_factor: 27/27+29 = 0.482
+        calc_factor (weight): 27/27+29 = 0.482
         amount_owes = 120 * 0.482 = 57.84
 
         flatmate_2:
 
-        calc_factor: 29/29+27 = 0.518
+        calc_factor (weight): 29/29+27 = 0.518
         amount_owes = 120 * 0.518 = 62.16
 
 
