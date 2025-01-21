@@ -1,4 +1,6 @@
 from fpdf import FPDF
+import os
+import webbrowser
 
 
 class Bill:
@@ -41,24 +43,30 @@ class PdfReport:
         pdf = FPDF(orientation='P', unit='pt', format='A4')
         pdf.add_page()
 
+        #add icon/image
+        pdf.image("house.png", w=30, h=30)
+
         #insert title
         pdf.set_font(family='Times', size=24, style='B')
-        pdf.cell(w=0, h=80, txt="Flatmates Bill", border=1, align='C', ln=1)
+        pdf.cell(w=0, h=80, txt="Flatmates Bill", border=0, align='C', ln=1)
 
         #insert period label and value
-        pdf.cell(w=150, h=40, txt="Period: ", border=1)
-        pdf.cell(w=200, h=40, txt=bill.period, border=1, ln=1)
+        pdf.set_font(family="Times", size=14, style='B')
+        pdf.cell(w=150, h=40, txt="Period: ", border=0)
+        pdf.cell(w=200, h=40, txt=bill.period, border=0, ln=1)
 
         #insert name and amount due for first flatmate
-        pdf.cell(w=150, h=40, txt=f"{flatmate1.name}: ", border=1)
-        pdf.cell(w=200, h=40, txt=str(flatmate1.pays(bill, flatmate2)), border=1, ln=1)
+        pdf.set_font(family="Times", size=12)
+        pdf.cell(w=150, h=25, txt=f"{flatmate1.name}: ", border=0)
+        pdf.cell(w=200, h=25, txt=str(flatmate1.pays(bill, flatmate2)), border=0, ln=1)
 
         #insert name and amount due for second flatmate
-        pdf.cell(w=150, h=40, txt=f"{flatmate2.name}: ", border=1)
-        pdf.cell(w=200, h=40, txt=str(flatmate2.pays(bill, flatmate1)), border=1, ln=1)
+        pdf.cell(w=150, h=25, txt=f"{flatmate2.name}: ", border=0)
+        pdf.cell(w=200, h=25, txt=str(flatmate2.pays(bill, flatmate1)), border=0, ln=1)
 
         #write to pdf file
         pdf.output(self.filename)
+        webbrowser.open('file://'+os.path.realpath(self.filename))
 
 the_bill = Bill(amount=120, period="December 2024")
 mary = Flatmate(name="Mary", days_in_house=27)
